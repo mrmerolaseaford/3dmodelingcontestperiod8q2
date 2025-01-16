@@ -1462,23 +1462,6 @@ ${isAdmin() ? `<p>Votes: ${project.votes || 0}</p>` : ''}
                 `).join('');
             }
 
-    function toggleAdminPanel() {
-        const adminPanel = document.getElementById('adminPanel');
-        if (!adminPanel) return;
-        
-        if (adminPanel.style.display === 'none') {
-                adminPanel.style.display = 'block';
-                if (!isAdmin()) {
-                    document.getElementById('adminLogin').style.display = 'block';
-                    document.getElementById('adminControls').style.display = 'none';
-                } else {
-                    updateAdminDashboard();
-                }
-            } else {
-                adminPanel.style.display = 'none';
-            }
-        }
-
             // Update statistics for current class
             const projects = getProjects();
             document.getElementById('totalProjects').textContent = projects.length;
@@ -1652,6 +1635,24 @@ ${isAdmin() ? `<p>Votes: ${project.votes || 0}</p>` : ''}
             }
         }
 
+    
+        function toggleAdminPanel() {
+            const adminPanel = document.getElementById('adminPanel');
+            if (!adminPanel) return;
+            
+            if (adminPanel.style.display === 'none' || !adminPanel.style.display) {
+                adminPanel.style.display = 'block';
+                if (!isAdmin()) {
+                    document.getElementById('adminLogin').style.display = 'block';
+                    document.getElementById('adminControls').style.display = 'none';
+                } else {
+                    updateAdminDashboard();
+                }
+            } else {
+                adminPanel.style.display = 'none';
+            }
+        }
+
         // Keyboard Navigation
         document.addEventListener('keydown', (e) => {
             if (document.getElementById('slideshowView').style.display === 'block') {
@@ -1694,6 +1695,12 @@ ${isAdmin() ? `<p>Votes: ${project.votes || 0}</p>` : ''}
                 adminPanel.style.display = 'none';
             }
             
+            // Add the admin button event listener here
+            const adminButton = document.getElementById('adminButton');
+            if (adminButton) {
+                adminButton.addEventListener('click', toggleAdminPanel);
+            }
+            
             if (isAdmin()) {
                 document.getElementById('adminLogin').style.display = 'none';
                 document.getElementById('adminControls').style.display = 'block';
@@ -1701,7 +1708,7 @@ ${isAdmin() ? `<p>Votes: ${project.votes || 0}</p>` : ''}
                 document.getElementById('adminStatus').classList.add('logged-in');
                 updateAdminDashboard();
             }
-
+        
             const slideshowCategory = document.getElementById('slideshowCategory');
             if (slideshowCategory) {
                 slideshowCategory.value = currentFilter;
