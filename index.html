@@ -788,7 +788,7 @@
                 <button class="nav-btn primary-btn" onclick="changeClass()" id="classButton">
                     <i class="fas fa-users"></i> <span id="currentClass">Select Class to Begin!</span>
                 </button>
-                <button class="nav-btn" onclick="toggleAdminPanel()" id="adminButton">
+                <button class="nav-btn" id="adminButton">
                     <i class="fas fa-lock"></i> Admin
                 </button>
             </div>
@@ -810,23 +810,23 @@
 </div>
         
         <!-- Admin Panel -->
-        <div id="adminPanel" class="admin-panel">
-            <div class="admin-grid">
-                <div class="admin-header">
-                    <h2 class="admin-title">Admin Control Panel</h2>
-                    <div id="adminStatus" class="admin-status">Not logged in</div>
-                </div>
-                
-                <!-- Login Section -->
-                <div id="adminLogin" class="admin-section">
-                    <input type="password" id="adminPassword" class="admin-input" placeholder="Enter admin password">
-                    <button class="nav-btn" onclick="verifyAdmin()" id="adminLoginButton">
-                        <i class="fas fa-lock"></i> Login
-                    </button>
-                </div>
+<div id="adminPanel" class="admin-panel" style="display: none;">
+    <div class="admin-grid">
+        <div class="admin-header">
+            <h2 class="admin-title">Admin Control Panel</h2>
+            <div id="adminStatus" class="admin-status">Not logged in</div>
+        </div>
+        
+        <!-- Login Section -->
+        <div id="adminLogin" class="admin-section">
+            <input type="password" id="adminPassword" class="admin-input" placeholder="Enter admin password">
+            <button class="nav-btn" onclick="verifyAdmin()">
+                <i class="fas fa-lock"></i> Login
+            </button>
+        </div>
 
-                <!-- Admin Controls (visible after login) -->
-                <div id="adminControls" class="admin-section" style="display: none;">
+        <!-- Admin Controls (visible after login) -->
+        <div id="adminControls" class="admin-section" style="display: none;">
                     <div class="admin-tools">
                         <button onclick="document.getElementById('fileUpload').click()" class="admin-btn">
                             <i class="fas fa-upload"></i> Upload Images
@@ -1634,24 +1634,26 @@ ${isAdmin() ? `<p>Votes: ${project.votes || 0}</p>` : ''}
                 showNotification('All projects have been removed');
             }
         }
-
     
-        function toggleAdminPanel() {
-            const adminPanel = document.getElementById('adminPanel');
-            if (!adminPanel) return;
-            
-            if (adminPanel.style.display === 'none' || !adminPanel.style.display) {
-                adminPanel.style.display = 'block';
-                if (!isAdmin()) {
-                    document.getElementById('adminLogin').style.display = 'block';
-                    document.getElementById('adminControls').style.display = 'none';
-                } else {
-                    updateAdminDashboard();
-                }
+    function toggleAdminPanel() {
+        const adminPanel = document.getElementById('adminPanel');
+        if (!adminPanel) {
+            console.error('Admin panel not found');
+            return;
+        }
+        
+        const currentDisplay = window.getComputedStyle(adminPanel).display;
+        adminPanel.style.display = currentDisplay === 'none' ? 'block' : 'none';
+        
+        if (adminPanel.style.display === 'block') {
+            if (!isAdmin()) {
+                document.getElementById('adminLogin').style.display = 'block';
+                document.getElementById('adminControls').style.display = 'none';
             } else {
-                adminPanel.style.display = 'none';
+                updateAdminDashboard();
             }
         }
+    }
 
         // Keyboard Navigation
         document.addEventListener('keydown', (e) => {
@@ -1690,32 +1692,41 @@ ${isAdmin() ? `<p>Votes: ${project.votes || 0}</p>` : ''}
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            const adminPanel = document.getElementById('adminPanel');
-            if (adminPanel) {
-                adminPanel.style.display = 'none';
-            }
-            
-            // Add the admin button event listener here
-            const adminButton = document.getElementById('adminButton');
-            if (adminButton) {
-                adminButton.addEventListener('click', toggleAdminPanel);
-            }
-            
-            if (isAdmin()) {
-                document.getElementById('adminLogin').style.display = 'none';
-                document.getElementById('adminControls').style.display = 'block';
-                document.getElementById('adminStatus').textContent = 'Logged in as Admin';
-                document.getElementById('adminStatus').classList.add('logged-in');
-                updateAdminDashboard();
-            }
-        
-            const slideshowCategory = document.getElementById('slideshowCategory');
-            if (slideshowCategory) {
-                slideshowCategory.value = currentFilter;
-            }
-            
-            updateGallery();
-        });
+    // Initialize admin button click handler
+    const adminButton = document.getElementById('adminButton');
+    if (adminButton) {
+        adminButton.addEventListener('click', toggleAdminPanel);
+        console.log('Admin button handler initialized');
+    } else {
+        console.error('Admin button not found');
+    }
+    
+    // Initial setup for admin panel
+    const adminPanel = document.getElementById('adminPanel');
+    if (adminPanel) {
+        adminPanel.style.display = 'none';
+    }
+    
+    // Check admin status and update UI accordingly
+    if (isAdmin()) {
+        document.getElementById('adminLogin').style.display = 'none';
+        document.getElementById('adminControls').style.display = 'block';
+        document.getElementById('adminStatus').textContent = 'Logged in as Admin';
+        document.getElementById('adminStatus').classList.add('logged-in');
+        updateAdminDashboard();
+    }
+
+    function isAdmin() {
+        return sessionStorage.getItem('isAdmin') === 'true';
+    }
+
+    // Initialize other components
+    updateGallery();
+    const slideshowCategory = document.getElementById('slideshowCategory');
+    if (slideshowCategory) {
+        slideshowCategory.value = currentFilter;
+    }
+});
     </script>
 </body>
 </html>
