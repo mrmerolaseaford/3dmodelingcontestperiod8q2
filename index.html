@@ -1305,11 +1305,20 @@ ${isAdmin() ? `<p>Votes: ${project.votes || 0}</p>` : ''}
                 `).join('');
             }
 
-            function toggleAdminPanel() {
+function toggleAdminPanel() {
     const adminPanel = document.getElementById('adminPanel');
-    if (adminPanel) {
-        adminPanel.style.display = adminPanel.style.display === 'none' ? 'block' : 'none';
-        if (isAdmin()) updateVoteResults();
+    if (!adminPanel) return;
+    
+    if (adminPanel.style.display === 'none') {
+        adminPanel.style.display = 'block';
+        if (!isAdmin()) {
+            document.getElementById('adminLogin').style.display = 'block';
+            document.getElementById('adminControls').style.display = 'none';
+        } else {
+            updateAdminDashboard();
+        }
+    } else {
+        adminPanel.style.display = 'none';
     }
 }
 
