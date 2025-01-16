@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Design Awards Showcase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Modern CSS Reset and Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Enhanced Custom Properties */
+        :root {
+            /* Modern Color Palette */
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #ec4899;
+            --accent: #f59e0b;
+            --background: #030712;
+            --surface: #111827;
+            --surface-alt: #1f2937;
+            --text: #f9fafb;
+            --text-secondary: #9ca3af;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            
+            /* Enhanced Animations */
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            
+            /* Refined Shadows */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            /* Typography */
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Header Styles */
+        .hero {
+            background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+            animation: heroPattern 20s linear infinite;
+        }
+
+        @keyframes heroPattern {
+            0% { background-position: 0 0; }
+            100% { background-position: 60px 60px; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .site-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 0 0 20px rgba(99, 102, 241, 0.5); }
+            to { text-shadow: 0 0 30px rgba(236, 72, 153, 0.5); }
+        }
+
+        .site-description {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Enhanced Navigation */
+        .nav-bar {
+            background: var(--surface);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            background: var(--surface-alt);
+            color: var(--text);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: var(--transition);
+        }
+
+        .nav-btn:hover::after {
+            opacity: 0.1;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: var(--primary);
+            box-shadow: 0 0 15px var(--primary-light);
+        }
+
+/* Enhanced Gallery Styles */
+        .gallery-view {
+            padding: 2rem 0;
+            min-height: 60vh;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--primary);
+            border-radius: 9999px;
+            background: transparent;
+            color: var(--text);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover::after {
+            opacity: 0.2;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .gallery-item {
+            background: var(--surface);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-item.winner::before {
+            content: '🏆 Winner';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: bold;
+            z-index: 1;
+            animation: winnerBadge 1s var(--bounce);
+        }
+
+        @keyframes winnerBadge {
+            from { transform: scale(0) rotate(-180deg); opacity: 0; }
+            to { transform: scale(1) rotate(0); opacity: 1; }
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+
+        .gallery-content {
+            padding: 1.5rem;
+        }
+
+        .gallery-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .gallery-category {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .gallery-category i {
+            color: var(--primary);
+        }
+
+        .vote-btn {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 0.5rem;
+            background: var(--primary);
+            color: var(--text);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vote-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: var(--transition);
+        }
+
+        .vote-btn:hover::after {
+            opacity: 0.2;
+        }
+
+        .vote-btn:hover:not(:disabled) {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .vote-btn:disabled {
+            background: var(--text-secondary);
+            cursor: not-allowed;
+        }
+
+        /* Enhanced Slideshow Styles */
+        .slideshow-view {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .slideshow-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 1600px;
+            text-align: center;
+        }
+
+        .slideshow-image {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-lg);
+            animation: imageZoom 0.3s var(--bounce);
+        }
+
+        @keyframes imageZoom {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .slideshow-info {
+            margin-top: 1rem;
+            color: var(--text);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .slideshow-controls {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            background: var(--surface);
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .slideshow-btn {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slideshow-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: var(--transition);
+        }
+
+        .slideshow-btn:hover::after {
+            opacity: 0.2;
+        }
+
+        .slideshow-btn:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+
+        /* Class Selection Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 500px;
+            animation: modalSlide 0.3s var(--bounce);
+        }
+
+        @keyframes modalSlide {
+            from { transform: translate(-50%, -60%); opacity: 0; }
+            to { transform: translate(-50%, -50%); opacity: 1; }
+        }
+
+        .class-selection {
+            margin: 1.5rem 0;
+        }
+
+        .class-option {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 0.5rem;
+            background: var(--surface-alt);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .class-option:hover {
+            background: var(--primary);
+            transform: translateX(5px);
+        }
+
+        /* Ultimate Winner Mode Styles */
+        .ultimate-winner-banner {
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            padding: 1rem;
+            text-align: center;
+            color: var(--text);
+            font-weight: bold;
+            display: none;
+            animation: bannerSlide 0.5s ease-out;
+        }
+
+        /* Add this to your styles section */
+.welcome-banner {
+    background: var(--surface);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-lg);
+    border: 2px solid var(--primary);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.welcome-banner h2 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.welcome-banner ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.welcome-banner li {
+    margin: 0.5rem 0;
+    color: var(--text-secondary);
+}
+
+.welcome-banner button {
+    margin-top: 1rem;
+}
+
+        @keyframes bannerSlide {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        /* Responsive Design Enhancements */
+        @media (max-width: 768px) {
+            .site-title {
+                font-size: 2.5rem;
+            }
+
+            .nav-group {
+                flex-wrap: wrap;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .slideshow-controls {
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 90%;
+                padding: 1rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            .admin-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .nav-btn.primary-btn {
+    background: var(--primary);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(99, 102, 241, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+}
+
+        /* Animation Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Ultimate Winner Mode Banner -->
+    <div id="ultimateWinnerBanner" class="ultimate-winner-banner" style="display: none;">
+        🏆 Ultimate Winner Competition Mode - Class Champions Face Off! 🏆
+    </div>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="site-title">3D Design Awards</h1>
+            <p class="site-description" id="contextDescription">Vote for the most innovative and creative 3D designs</p>
+        </div>
+    </header>
+
+    <nav class="nav-bar">
+        <div class="container nav-content">
+            <div class="nav-group">
+                <button class="nav-btn active" onclick="setView('gallery')">
+                    <i class="fas fa-th"></i> Gallery
+                </button>
+                <button class="nav-btn" onclick="setView('slideshow')">
+                    <i class="fas fa-play"></i> Slideshow
+                </button>
+            </div>
+            <div class="nav-group">
+                <button class="nav-btn primary-btn" onclick="changeClass()" id="classButton">
+                    <i class="fas fa-users"></i> <span id="currentClass">Select Class to Begin!</span>
+                </button>
+                <button class="nav-btn" id="adminButton">
+                    <i class="fas fa-lock"></i> Admin
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+<div id="welcomeBanner" class="welcome-banner">
+    <h2>Welcome to the 3D Design Awards! 👋</h2>
+    <p>To get started:</p>
+    <ol>
+        <li>Click the "Select Class" button above</li>
+        <li>Enter your class code</li>
+        <li>Browse designs and vote for your favorites!</li>
+    </ol>
+    <button onclick="this.parentElement.style.display='none'" class="admin-btn">
+        Got it!
+    </button>
+</div>
+        
+        <!-- Admin Panel -->
+        <div id="adminPanel" class="admin-panel">
+            <div class="admin-grid">
+                <div class="admin-header">
+                    <h2 class="admin-title">Admin Control Panel</h2>
+                    <div id="adminStatus" class="admin-status">Not logged in</div>
+                </div>
+                
+                <!-- Login Section -->
+                <div id="adminLogin" class="admin-section">
+                    <input type="password" id="adminPassword" class="admin-input" placeholder="Enter admin password">
+                    <button class="nav-btn" onclick="toggleAdminPanel()" id="adminButton">
+                        <i class="fas fa-lock"></i> Admin
+                    </button>
+                </div>
+
+                <!-- Admin Controls (visible after login) -->
+                <div id="adminControls" class="admin-section" style="display: none;">
+                    <div class="admin-tools">
+                        <button onclick="document.getElementById('fileUpload').click()" class="admin-btn">
+                            <i class="fas fa-upload"></i> Upload Images
+                        </button>
+                        <button onclick="exportResults()" class="admin-btn">
+                            <i class="fas fa-download"></i> Export Results
+                        </button>
+                        <button onclick="toggleUltimateWinnerMode()" class="admin-btn" id="ultimateWinnerBtn">
+                            <i class="fas fa-trophy"></i> Ultimate Winner Mode
+                        </button>
+                        <button onclick="resetVotes()" class="admin-btn danger">
+                            <i class="fas fa-trash"></i> Reset Votes
+                        </button>
+                        <button onclick="clearAllProjects()" class="admin-btn danger">
+                            <i class="fas fa-trash-alt"></i> Clear Projects
+                        </button>
+                        <button onclick="adminLogout()" class="admin-btn danger">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                    
+                    <input type="file" id="fileUpload" multiple accept="image/*" style="display: none">
+                    
+                    <div class="admin-stats">
+                        <div class="stat-box">
+                            <h4>Total Projects</h4>
+                            <span id="totalProjects">0</span>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Total Votes</h4>
+                            <span id="totalVotes">0</span>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Categories</h4>
+                            <span id="categoryStats">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Class Codes Display -->
+                    <div class="admin-section class-codes">
+                        <h3>Class Access Codes</h3>
+                        <div id="classCodesList" class="class-codes-grid">
+                            <!-- Class codes will be listed here -->
+                        </div>
+                    </div>
+
+                    <div id="projectManagement" class="project-list">
+                        <h3>Manage Projects</h3>
+                        <div class="project-grid" id="adminProjectList">
+                            <!-- Projects will be listed here -->
+                        </div>
+                    </div>
+
+                    <div id="voteResults" class="vote-results">
+                        <h3>Vote Results</h3>
+                        <!-- Vote results will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterCategory('all')">All Designs</button>
+            <button class="filter-btn" onclick="filterCategory('character')">Characters</button>
+            <button class="filter-btn" onclick="filterCategory('transport')">Transportation</button>
+        </div>
+
+        <!-- Gallery View -->
+        <div id="galleryView" class="gallery-view">
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Gallery items will be dynamically added here -->
+            </div>
+        </div>
+
+        <!-- Slideshow View -->
+        <div id="slideshowView" class="slideshow-view">
+            <div class="slideshow-content">
+                <img id="slideshowImage" class="slideshow-image" src="" alt="Slideshow Image">
+                <div id="slideshowInfo" class="slideshow-info"></div>
+            </div>
+            <div class="slideshow-controls">
+                <button class="slideshow-btn" onclick="previousSlide()">
+                    <i class="fas fa-backward"></i>
+                </button>
+                <button class="slideshow-btn" onclick="toggleSlideshow()">
+                    <i id="playPauseIcon" class="fas fa-play"></i>
+                </button>
+                <button class="slideshow-btn" onclick="nextSlide()">
+                    <i class="fas fa-forward"></i>
+                </button>
+                <div class="timer-control">
+                    <input type="number" id="intervalInput" value="3" min="1" max="10" 
+                           onchange="updateInterval(this.value)" 
+                           style="width: 60px; padding: 0.5rem; border-radius: 0.25rem; background: var(--surface-alt); color: var(--text); border: none;">
+                    <span style="margin-left: 0.5rem">seconds</span>
+                </div>
+                <div class="category-control">
+                    <select id="slideshowCategory" 
+                            onchange="changeSlideshowCategory(this.value)"
+                            style="padding: 0.5rem; border-radius: 0.25rem; background: var(--surface-alt); color: var(--text); border: none;">
+                        <option value="all">All Projects</option>
+                        <option value="character">Characters</option>
+                        <option value="transport">Transportation</option>
+                    </select>
+                </div>
+                <button class="slideshow-btn" onclick="toggleFullscreen()">
+                    <i class="fas fa-expand"></i>
+                </button>
+                <button class="slideshow-btn" onclick="setView('gallery')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Class Selection Modal -->
+    <div id="classSelectionModal" class="modal">
+        <div class="modal-content">
+            <h2>Enter Class Code</h2>
+            <input type="text" id="classCodeInput" class="admin-input" placeholder="Enter class code">
+            <button onclick="verifyClassCode()" class="admin-btn">Enter</button>
+        </div>
+    </div>
+
+    <!-- Ultimate Winner Mode Setup Modal -->
+    <div id="ultimateWinnerModal" class="modal">
+        <div class="modal-content">
+            <h2>Ultimate Winner Mode Setup</h2>
+            <div class="class-selection" id="classSelection">
+                <h3>Select Classes to Include:</h3>
+                <!-- Class checkboxes will be generated here -->
+            </div>
+            <button onclick="startUltimateWinnerMode()" class="admin-btn">Start Ultimate Winner Mode</button>
+        </div>
+    </div>
+
+    <!-- Notification System -->
+    <div id="notificationContainer" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+
+<script>
+        // Constants and Class Codes
+        const ADMIN_PASSWORD = 'mrmerolasecretpassword';
+        const CLASS_CODES = {
+            'XKJ9P2': 'Period 1',
+            'LMN5R8': 'Period 2',
+            'QWE3T6': 'Period 3',
+            'ZXC4V7': 'Period 4',
+            'BNM2K9': 'Period 5',
+            'HJK8L1': 'Period 6',
+            'UIO7P4': 'Period 7'
+        };
+
+        // State Management
+        let currentClass = null;
+        let projectsByClass = JSON.parse(localStorage.getItem('projectsByClass')) || {};
+        let currentSlide = 0;
+        let slideshowInterval;
+        let intervalTime = 3000;
+        let isPlaying = false;
+        let currentFilter = 'all';
+        let ultimateWinnerMode = false;
+        let selectedWinners = {};
+
+        // Initialize class data structure
+        Object.keys(CLASS_CODES).forEach(code => {
+            if (!projectsByClass[code]) {
+                projectsByClass[code] = {
+                    projects: [],
+                    winners: {}
+                };
+            }
+        });
+
+        // Utility Functions
+        function generateUniqueId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            notification.style.padding = '1rem 2rem';
+            notification.style.borderRadius = '0.5rem';
+            notification.style.marginBottom = '0.5rem';
+            notification.style.background = type === 'success' ? 'var(--success)' : 'var(--error)';
+            notification.style.color = 'white';
+            notification.style.animation = 'slideIn 0.3s ease-out';
+
+            const container = document.getElementById('notificationContainer');
+            container.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Class Management
+        function changeClass() {
+            if (isAdmin()) {
+                // Admin can switch between classes directly
+                showClassList();
+            } else {
+                // Students need to enter class code
+                document.getElementById('classSelectionModal').style.display = 'block';
+            }
+        }
+
+        function showClassList() {
+            const modal = document.getElementById('classSelectionModal');
+            const modalContent = modal.querySelector('.modal-content');
+            modalContent.innerHTML = `
+                <h2>Select Class</h2>
+                <div class="class-selection">
+                    ${Object.entries(CLASS_CODES).map(([code, name]) => `
+                        <div class="class-option" onclick="selectClass('${code}')">
+                            <h3>${name}</h3>
+                            <p>Code: ${code}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            modal.style.display = 'block';
+        }
+
+        function verifyClassCode() {
+            const code = document.getElementById('classCodeInput').value.trim().toUpperCase();
+            if (CLASS_CODES[code]) {
+                selectClass(code);
+                document.getElementById('classSelectionModal').style.display = 'none';
+                document.getElementById('classCodeInput').value = '';
+                showNotification(`Welcome to ${CLASS_CODES[code]}!`);
+            } else {
+                showNotification('Invalid class code!', 'error');
+            }
+        }
+
+        function selectClass(code) {
+            currentClass = code;
+            document.getElementById('currentClass').textContent = CLASS_CODES[code];
+            document.getElementById('classSelectionModal').style.display = 'none';
+            document.getElementById('contextDescription').textContent = 
+                ultimateWinnerMode ? '🏆 Vote for the Ultimate Champion! 🏆' : 
+                `Welcome to ${CLASS_CODES[code]} - Vote for your favorite designs!`;
+            updateGallery();
+        }
+
+        // Project Management
+        function getProjects() {
+            if (!currentClass) return [];
+            if (ultimateWinnerMode) {
+                return Object.values(selectedWinners).flat();
+            }
+            return projectsByClass[currentClass]?.projects || [];
+        }
+
+        function addProject(project) {
+            if (!currentClass) return;
+            if (!projectsByClass[currentClass]) {
+                projectsByClass[currentClass] = { projects: [], winners: {} };
+            }
+            projectsByClass[currentClass].projects.push({
+                ...project,
+                id: generateUniqueId(),
+                votes: 0
+            });
+            saveProjects();
+        }
+
+        function saveProjects() {
+            localStorage.setItem('projectsByClass', JSON.stringify(projectsByClass));
+        }
+
+        // Voting System
+        function hasVoted(category) {
+            if (ultimateWinnerMode) {
+                return localStorage.getItem(`voted_ultimate_${category}`) === 'true';
+            }
+            return localStorage.getItem(`voted_${currentClass}_${category}`) === 'true';
+        }
+
+        function vote(projectId) {
+            const projects = getProjects();
+            const projectIndex = projects.findIndex(p => p.id === projectId);
+            if (projectIndex === -1) return;
+
+            const project = projects[projectIndex];
+            if (hasVoted(project.category)) {
+                showNotification('You have already voted in this category!', 'error');
+                return;
+            }
+
+            project.votes = (project.votes || 0) + 1;
+            saveProjects();
+
+            if (ultimateWinnerMode) {
+                localStorage.setItem(`voted_ultimate_${project.category}`, 'true');
+            } else {
+                localStorage.setItem(`voted_${currentClass}_${project.category}`, 'true');
+            }
+
+            showNotification('Vote recorded successfully!');
+            updateGallery();
+            if (isAdmin()) updateVoteResults();
+        }
+
+        // Winner Selection
+        function selectWinners(classCode) {
+            const categories = ['character', 'transport'];
+            const winners = {};
+            
+            categories.forEach(category => {
+                const categoryProjects = projectsByClass[classCode].projects
+                    .filter(p => p.category === category)
+                    .sort((a, b) => (b.votes || 0) - (a.votes || 0));
+                
+                if (categoryProjects.length > 0) {
+                    winners[category] = categoryProjects[0];
+                }
+            });
+
+            projectsByClass[classCode].winners = winners;
+            saveProjects();
+            return winners;
+        }
+
+        // Ultimate Winner Mode
+        function toggleUltimateWinnerMode() {
+            if (!isAdmin()) return;
+
+            const modal = document.getElementById('ultimateWinnerModal');
+            modal.style.display = 'block';
+
+            const classSelection = document.getElementById('classSelection');
+            classSelection.innerHTML = Object.entries(CLASS_CODES).map(([code, name]) => `
+                <div class="class-checkbox">
+                    <input type="checkbox" id="class_${code}" value="${code}">
+                    <label for="class_${code}">${name}</label>
+                </div>
+            `).join('');
+        }
+
+        function startUltimateWinnerMode() {
+            const selectedClasses = Array.from(document.querySelectorAll('.class-checkbox input:checked'))
+                .map(cb => cb.value);
+
+            if (selectedClasses.length < 2) {
+                showNotification('Please select at least two classes!', 'error');
+                return;
+            }
+
+            selectedWinners = {};
+            selectedClasses.forEach(classCode => {
+                const winners = selectWinners(classCode);
+                Object.entries(winners).forEach(([category, project]) => {
+                    if (!selectedWinners[category]) selectedWinners[category] = [];
+                    selectedWinners[category].push({
+                        ...project,
+                        originalClass: CLASS_CODES[classCode]
+                    });
+                });
+            });
+
+            ultimateWinnerMode = true;
+            document.getElementById('ultimateWinnerModal').style.display = 'none';
+            document.getElementById('ultimateWinnerBanner').style.display = 'block';
+            document.getElementById('contextDescription').textContent = '🏆 Vote for the Ultimate Champion! 🏆';
+            
+            // Reset ultimate winner votes
+            Object.keys(selectedWinners).forEach(category => {
+                localStorage.removeItem(`voted_ultimate_${category}`);
+            });
+
+            updateGallery();
+            showNotification('Ultimate Winner Mode activated!');
+        }
+
+        // Admin Functions
+        function isAdmin() {
+            return sessionStorage.getItem('isAdmin') === 'true';
+        }
+
+        function verifyAdmin() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === ADMIN_PASSWORD) {
+                sessionStorage.setItem('isAdmin', 'true');
+                document.getElementById('adminLogin').style.display = 'none';
+                document.getElementById('adminControls').style.display = 'block';
+                document.getElementById('adminStatus').textContent = 'Logged in as Admin';
+                document.getElementById('adminStatus').classList.add('logged-in');
+                updateAdminDashboard();
+                showNotification('Admin access granted!');
+            } else {
+                showNotification('Invalid password!', 'error');
+            }
+        }
+
+        function adminLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                sessionStorage.removeItem('isAdmin');
+                document.getElementById('adminPanel').style.display = 'none';
+                document.getElementById('adminLogin').style.display = 'block';
+                document.getElementById('adminControls').style.display = 'none';
+                document.getElementById('adminStatus').textContent = 'Not logged in';
+                document.getElementById('adminStatus').classList.remove('logged-in');
+                document.getElementById('adminPassword').value = '';
+                updateGallery();
+                showNotification('Logged out successfully');
+            }
+        }
+
+        // File Upload
+        document.getElementById('fileUpload').addEventListener('change', handleFileUpload);
+
+        function handleFileUpload(event) {
+            if (!currentClass) {
+                showNotification('Please select a class first!', 'error');
+                return;
+            }
+
+            const files = event.target.files;
+            let processed = 0;
+            
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const category = prompt(`Category for ${file.name} (character/transport):`, 'character');
+                    if (category && ['character', 'transport'].includes(category)) {
+                        addProject({
+                            image: e.target.result,
+                            filename: file.name,
+                            category: category,
+                            uploadDate: new Date().toISOString()
+                        });
+                        processed++;
+                        
+                        if (processed === files.length) {
+                            updateGallery();
+                            showNotification(`Successfully uploaded ${processed} files!`);
+                        }
+                    }
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Gallery Management
+        function updateGallery() {
+            const projects = getProjects();
+            const filteredProjects = currentFilter === 'all' 
+                ? projects 
+                : projects.filter(p => p.category === currentFilter);
+
+            const gallery = document.getElementById('galleryGrid');
+            gallery.innerHTML = filteredProjects.map(project => `
+                <div class="gallery-item ${project.isWinner ? 'winner' : ''}">
+                    <img class="gallery-image" src="${project.image}" alt="${project.filename}" 
+                         onclick="openSlideshow('${project.id}')">
+                    <div class="gallery-content">
+                        <h3 class="gallery-title">${project.filename}</h3>
+                        <p class="gallery-category">
+                            <i class="fas ${project.category === 'character' ? 'fa-user' : 'fa-car'}"></i>
+                            ${project.category.charAt(0).toUpperCase() + project.category.slice(1)}
+                            ${ultimateWinnerMode ? `<br>From: ${project.originalClass}` : ''}
+                        </p>
+                        ${isAdmin() ? `<div class="vote-count">Votes: ${project.votes || 0}</div>` : ''}
+                        <button class="vote-btn" onclick="vote('${project.id}')"
+                                ${hasVoted(project.category) ? 'disabled' : ''}>
+                            ${hasVoted(project.category) ? 'Already Voted' : 'Vote for This Design'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterCategory(category) {
+            currentFilter = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent.toLowerCase().includes(category));
+            });
+            const slideshowCategory = document.getElementById('slideshowCategory');
+            if (slideshowCategory) {
+                slideshowCategory.value = category;
+            }
+            updateGallery();
+        }
+
+        // Slideshow Functions
+        function setView(view) {
+            const galleryView = document.getElementById('galleryView');
+            const slideshowView = document.getElementById('slideshowView');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent.toLowerCase().includes(view));
+            });
+
+            if (view === 'gallery') {
+                slideshowView.style.display = 'none';
+                galleryView.style.display = 'block';
+                stopSlideshow();
+            } else {
+                slideshowView.style.display = 'block';
+                galleryView.style.display = 'none';
+                document.getElementById('slideshowCategory').value = currentFilter;
+                if (!isPlaying) updateSlideshow();
+            }
+        }
+
+        function openSlideshow(projectId) {
+            const projects = getProjects();
+            currentSlide = projects.findIndex(p => p.id === projectId);
+            setView('slideshow');
+            updateSlideshow();
+        }
+
+        function updateSlideshow() {
+            const projects = getProjects();
+            if (projects.length === 0) return;
+            
+            const filteredProjects = currentFilter === 'all'
+                ? projects
+                : projects.filter(p => p.category === currentFilter);
+
+            if (filteredProjects.length === 0) {
+                setView('gallery');
+                showNotification('No projects in this category');
+                return;
+            }
+
+            const project = projects[currentSlide];
+            const image = document.getElementById('slideshowImage');
+            const info = document.getElementById('slideshowInfo');
+            
+            image.src = project.image;
+            image.alt = project.filename;
+            info.innerHTML = `
+                <h3>${project.filename}</h3>
+                <p>${project.category.charAt(0).toUpperCase() + project.category.slice(1)}</p>
+                ${ultimateWinnerMode ? `<p>From: ${project.originalClass}</p>` : ''}
+${isAdmin() ? `<p>Votes: ${project.votes || 0}</p>` : ''}
+            `;
+        }
+
+        function nextSlide() {
+            const projects = getProjects();
+            const filteredProjects = currentFilter === 'all'
+                ? projects
+                : projects.filter(p => p.category === currentFilter);
+            
+            const currentIndex = filteredProjects.indexOf(projects[currentSlide]);
+            currentSlide = projects.indexOf(filteredProjects[(currentIndex + 1) % filteredProjects.length]);
+            updateSlideshow();
+        }
+
+        function previousSlide() {
+            const projects = getProjects();
+            const filteredProjects = currentFilter === 'all'
+                ? projects
+                : projects.filter(p => p.category === currentFilter);
+            
+            const currentIndex = filteredProjects.indexOf(projects[currentSlide]);
+            currentSlide = projects.indexOf(filteredProjects[(currentIndex - 1 + filteredProjects.length) % filteredProjects.length]);
+            updateSlideshow();
+        }
+
+        function toggleSlideshow() {
+            const icon = document.getElementById('playPauseIcon');
+            if (isPlaying) {
+                stopSlideshow();
+                icon.classList.replace('fa-pause', 'fa-play');
+            } else {
+                startSlideshow();
+                icon.classList.replace('fa-play', 'fa-pause');
+            }
+        }
+
+        function startSlideshow() {
+            isPlaying = true;
+            slideshowInterval = setInterval(nextSlide, intervalTime);
+        }
+
+        function stopSlideshow() {
+            isPlaying = false;
+            clearInterval(slideshowInterval);
+        }
+
+        function updateInterval(seconds) {
+            intervalTime = seconds * 1000;
+            if (isPlaying) {
+                stopSlideshow();
+                startSlideshow();
+            }
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function changeSlideshowCategory(category) {
+            currentFilter = category;
+            const filteredProjects = getProjects().filter(p => 
+                category === 'all' ? true : p.category === category
+            );
+            
+            if (filteredProjects.length > 0) {
+                currentSlide = getProjects().indexOf(filteredProjects[0]);
+                updateSlideshow();
+            } else {
+                showNotification('No projects in this category');
+                setView('gallery');
+            }
+        }
+
+        // Admin Dashboard Functions
+        function updateAdminDashboard() {
+            if (!isAdmin()) return;
+
+            // Update class codes list
+            const classCodesList = document.getElementById('classCodesList');
+            if (classCodesList) {
+                classCodesList.innerHTML = Object.entries(CLASS_CODES).map(([code, name]) => `
+                    <div class="class-code-item">
+                        <h4>${name}</h4>
+                        <p>Code: ${code}</p>
+                        <p>Projects: ${(projectsByClass[code]?.projects || []).length}</p>
+                    </div>
+                `).join('');
+            }
+
+            function toggleAdminPanel() {
+    const adminPanel = document.getElementById('adminPanel');
+    if (adminPanel) {
+        adminPanel.style.display = adminPanel.style.display === 'none' ? 'block' : 'none';
+        if (isAdmin()) updateVoteResults();
+    }
+}
+
+            // Update statistics for current class
+            const projects = getProjects();
+            document.getElementById('totalProjects').textContent = projects.length;
+            document.getElementById('totalVotes').textContent = 
+                projects.reduce((sum, p) => sum + (p.votes || 0), 0);
+            document.getElementById('categoryStats').innerHTML = 
+                `Character: ${projects.filter(p => p.category === 'character').length}<br>
+                 Transport: ${projects.filter(p => p.category === 'transport').length}`;
+
+            // Update project management list
+            updateProjectList();
+            updateVoteResults();
+        }
+
+        function updateProjectList() {
+            if (!isAdmin() || !currentClass) return;
+
+            const projects = getProjects();
+            const projectList = document.getElementById('adminProjectList');
+            projectList.innerHTML = projects.map(project => `
+                <div class="project-card">
+                    <img src="${project.image}" alt="${project.filename}">
+                    <div class="project-card-content">
+                        <h4>${project.filename}</h4>
+                        <p>${project.category} - ${project.votes || 0} votes</p>
+                        ${ultimateWinnerMode ? `<p>From: ${project.originalClass}</p>` : ''}
+                        <div class="project-card-actions">
+                            ${!ultimateWinnerMode ? `
+                                <button onclick="editProject('${project.id}')" class="project-card-btn">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button onclick="removeProject('${project.id}')" class="project-card-btn remove">
+                                    <i class="fas fa-trash"></i> Remove
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateVoteResults() {
+            if (!isAdmin() || !currentClass) return;
+            
+            const resultsDiv = document.getElementById('voteResults');
+            resultsDiv.style.display = 'block';
+            
+            const projects = getProjects();
+            const categories = ['character', 'transport'];
+            let resultsHTML = '';
+            
+            if (ultimateWinnerMode) {
+                resultsHTML += '<h3>🏆 Ultimate Winner Competition Results 🏆</h3>';
+            }
+            
+            categories.forEach(category => {
+                const categoryProjects = projects.filter(p => p.category === category);
+                resultsHTML += `
+                    <div class="category-results">
+                        <h4>${category.charAt(0).toUpperCase() + category.slice(1)} Category:</h4>
+                        ${categoryProjects
+                            .sort((a, b) => (b.votes || 0) - (a.votes || 0))
+                            .map(project => `
+                                <div class="vote-count">
+                                    ${project.filename}: ${project.votes || 0} votes
+                                    ${ultimateWinnerMode ? `(${project.originalClass})` : ''}
+                                </div>
+                            `).join('')}
+                    </div>
+                `;
+            });
+            
+            resultsDiv.innerHTML = resultsHTML;
+        }
+
+        function exportResults() {
+            if (!isAdmin()) return;
+
+            const results = {
+                timestamp: new Date().toISOString(),
+                mode: ultimateWinnerMode ? 'Ultimate Winner Competition' : 'Class Competition',
+                data: ultimateWinnerMode ? selectedWinners : projectsByClass,
+                currentClass: currentClass ? CLASS_CODES[currentClass] : null
+            };
+
+            const blob = new Blob([JSON.stringify(results, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `design-awards-results-${new Date().toISOString().slice(0,10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showNotification('Results exported successfully!');
+        }
+
+        function editProject(projectId) {
+            if (!isAdmin() || !currentClass) return;
+            
+            const projects = getProjects();
+            const project = projects.find(p => p.id === projectId);
+            if (!project) return;
+
+            const newName = prompt('Enter new name for the project:', project.filename);
+            const newCategory = prompt('Enter new category (character/transport):', project.category);
+            
+            if (newName && newCategory && ['character', 'transport'].includes(newCategory)) {
+                project.filename = newName;
+                project.category = newCategory;
+                saveProjects();
+                updateGallery();
+                updateAdminDashboard();
+                showNotification('Project updated successfully');
+            }
+        }
+
+        function removeProject(projectId) {
+            if (!isAdmin() || !currentClass || ultimateWinnerMode) return;
+
+            const project = projectsByClass[currentClass].projects.find(p => p.id === projectId);
+            if (!project) return;
+
+            if (confirm(`Are you sure you want to remove "${project.filename}"?`)) {
+                projectsByClass[currentClass].projects = 
+                    projectsByClass[currentClass].projects.filter(p => p.id !== projectId);
+                saveProjects();
+                updateGallery();
+                updateAdminDashboard();
+                showNotification('Project removed successfully');
+            }
+        }
+
+        function resetVotes() {
+            if (!isAdmin() || !currentClass) return;
+            
+            if (confirm('Are you sure you want to reset all votes? This cannot be undone.')) {
+                if (ultimateWinnerMode) {
+                    Object.values(selectedWinners).flat().forEach(project => {
+                        project.votes = 0;
+                    });
+                    Object.keys(selectedWinners).forEach(category => {
+                        localStorage.removeItem(`voted_ultimate_${category}`);
+                    });
+                } else {
+                    projectsByClass[currentClass].projects.forEach(project => {
+                        project.votes = 0;
+                    });
+                    ['character', 'transport'].forEach(category => {
+                        localStorage.removeItem(`voted_${currentClass}_${category}`);
+                    });
+                }
+                
+                saveProjects();
+                updateGallery();
+                updateAdminDashboard();
+                showNotification('All votes have been reset');
+            }
+        }
+
+        function clearAllProjects() {
+            if (!isAdmin() || !currentClass || ultimateWinnerMode) return;
+            
+            if (confirm('Are you sure you want to remove all projects? This cannot be undone.')) {
+                projectsByClass[currentClass].projects = [];
+                projectsByClass[currentClass].winners = {};
+                saveProjects();
+                updateGallery();
+                updateAdminDashboard();
+                showNotification('All projects have been removed');
+            }
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('slideshowView').style.display === 'block') {
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        previousSlide();
+                        break;
+                    case 'ArrowRight':
+                        nextSlide();
+                        break;
+                    case ' ':
+                        toggleSlideshow();
+                        e.preventDefault();
+                        break;
+                    case 'Escape':
+                        if (document.fullscreenElement) {
+                            document.exitFullscreen();
+                        } else {
+                            setView('gallery');
+                        }
+                        break;
+                }
+            }
+        });
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            Array.from(modals).forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            const adminPanel = document.getElementById('adminPanel');
+            if (adminPanel) {
+                adminPanel.style.display = 'none';
+            }
+            
+            if (isAdmin()) {
+                document.getElementById('adminLogin').style.display = 'none';
+                document.getElementById('adminControls').style.display = 'block';
+                document.getElementById('adminStatus').textContent = 'Logged in as Admin';
+                document.getElementById('adminStatus').classList.add('logged-in');
+                updateAdminDashboard();
+            }
+
+            const slideshowCategory = document.getElementById('slideshowCategory');
+            if (slideshowCategory) {
+                slideshowCategory.value = currentFilter;
+            }
+            
+            updateGallery();
+        });
+    </script>
+</body>
+</html>
