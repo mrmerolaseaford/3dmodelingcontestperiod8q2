@@ -601,6 +601,163 @@
             40% { transform: translateY(-20px); }
             60% { transform: translateY(-10px); }
         }
+
+        /* Admin Panel Styles */
+.admin-panel {
+    background: var(--surface);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-lg);
+    display: none;
+}
+
+.admin-section {
+    margin: 1.5rem 0;
+}
+
+.admin-input {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border: 2px solid var(--surface-alt);
+    border-radius: 0.5rem;
+    background: var(--surface-alt);
+    color: var(--text);
+    transition: var(--transition);
+}
+
+.admin-input:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.admin-tools {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+}
+
+.admin-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: var(--primary);
+    color: var(--text);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.admin-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.admin-btn.danger {
+    background: var(--error);
+}
+
+.admin-btn.danger:hover {
+    background: #dc2626;
+}
+
+.stat-box {
+    background: var(--surface-alt);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.class-codes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.class-code-item {
+    background: var(--surface-alt);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.project-card {
+    background: var(--surface-alt);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.project-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.project-card-content {
+    padding: 1rem;
+}
+
+.project-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.project-card-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    background: var(--primary);
+    color: var(--text);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.project-card-btn:hover {
+    background: var(--primary-dark);
+}
+
+.project-card-btn.remove {
+    background: var(--error);
+}
+
+.project-card-btn.remove:hover {
+    background: #dc2626;
+}
+
+.vote-results {
+    margin: 1.5rem 0;
+}
+
+.category-results {
+    background: var(--surface-alt);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+}
+
+.vote-count {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--surface);
+}
+
+/* Add this to your styles section */
     </style>
 </head>
 
@@ -631,7 +788,7 @@
                 <button class="nav-btn primary-btn" onclick="changeClass()" id="classButton">
                     <i class="fas fa-users"></i> <span id="currentClass">Select Class to Begin!</span>
                 </button>
-                <button class="nav-btn" id="adminButton">
+                <button class="nav-btn" onclick="toggleAdminPanel()" id="adminButton">
                     <i class="fas fa-lock"></i> Admin
                 </button>
             </div>
@@ -663,8 +820,8 @@
                 <!-- Login Section -->
                 <div id="adminLogin" class="admin-section">
                     <input type="password" id="adminPassword" class="admin-input" placeholder="Enter admin password">
-                    <button class="nav-btn" onclick="toggleAdminPanel()" id="adminButton">
-                        <i class="fas fa-lock"></i> Admin
+                    <button class="nav-btn" onclick="verifyAdmin()" id="adminLoginButton">
+                        <i class="fas fa-lock"></i> Login
                     </button>
                 </div>
 
@@ -1305,22 +1462,22 @@ ${isAdmin() ? `<p>Votes: ${project.votes || 0}</p>` : ''}
                 `).join('');
             }
 
-function toggleAdminPanel() {
-    const adminPanel = document.getElementById('adminPanel');
-    if (!adminPanel) return;
-    
-    if (adminPanel.style.display === 'none') {
-        adminPanel.style.display = 'block';
-        if (!isAdmin()) {
-            document.getElementById('adminLogin').style.display = 'block';
-            document.getElementById('adminControls').style.display = 'none';
-        } else {
-            updateAdminDashboard();
+    function toggleAdminPanel() {
+        const adminPanel = document.getElementById('adminPanel');
+        if (!adminPanel) return;
+        
+        if (adminPanel.style.display === 'none') {
+                adminPanel.style.display = 'block';
+                if (!isAdmin()) {
+                    document.getElementById('adminLogin').style.display = 'block';
+                    document.getElementById('adminControls').style.display = 'none';
+                } else {
+                    updateAdminDashboard();
+                }
+            } else {
+                adminPanel.style.display = 'none';
+            }
         }
-    } else {
-        adminPanel.style.display = 'none';
-    }
-}
 
             // Update statistics for current class
             const projects = getProjects();
